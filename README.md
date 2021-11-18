@@ -1,14 +1,16 @@
-# dmm-ble-mp730026
- Python code to access the a Multicomp Pro MP730026 DMM over BLE
+# Connect to Bluetooth Multimeter
 
-This multimeter supports communication over Bluetooth, however, the included software is not very good. And it only works with a specific dongle.
+Works for
 
-Using [the bleak python module](https://github.com/hbldh/bleak), virtually any operation system and bluetooth controller works. So far I have successfully used this code with:
+* AOPUTTRIVER AP-90EPD
+* HoldPeak HP-90EPD
 
-* macOS: Macbook Pro and MacPro (Trashcan)
-* Windows 10: Microsoft Surface Book Pro 2
-* Linux: Raspberry Pi 3B
+Multimeters via BLE (Bluetooth Low Energy) connection *without* prior pairing of the devices.
 
-The intent for the code is to provide a decoded string from the DMM and to act as an API pass-through for other applications.
 
-decoding dmm maybe.txt are messages from my meter along with descriptions of what the screen showed.
+## Credits
+
+This work derives from two main sources:
+
+* https://alexkaltsas.wordpress.com/2013/04/19/python-script-to-read-data-from-va18b-multimeter/
+* https://www.element14.com/community/community/element14-presents/workbenchwednesdays/blog/2020/03/09/connecting-to-mp730026-ble-dmm-with-python-and-bleak
