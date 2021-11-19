@@ -15,12 +15,12 @@ from ap_90epd import decode_data
 from bleak import BleakClient
 from bleak import _logger as logger
 
-# Change this to your meter's address
-address = ("") # for Windows and Linux, my Device is called something like "FS9721-LP3"
+# Change this to your meter's address, use bleak_scan.py to find out
+address = ("00:00:00:00:00:00") # for Windows and Linux, my Device is called something like "FS9721-LP3"
 #address = ("4DA7C422-D3DE-4AE5-AF14-CFEBDD3B85D1") # for macOS ?
 
-if not len(address) >= 17:
-    raise ValueError("Invalid bluetooth mac address. Use BLE scanner app to find out yours.")
+if address == ("00:00:00:00:00:00"):
+    raise ValueError("Invalid bluetooth mac address. Use BLE scanner app or bleak_scan.py to find out yours.")
 
 # This characteristic UUID is for the BDM / MP730026 BLE message
 # use Android App "BLE Scanner" and click the "N" badge to see which BLE item streams data, if this is not working for you
@@ -67,7 +67,8 @@ async def run(address, loop, debug=False):
 
 if __name__ == "__main__":
     import os
-    os.environ["PYTHONASYNCIODEBUG"] = str(1)
+    # comment-in this if you have trouble in python debugging mode
+    # os.environ["PYTHONASYNCIODEBUG"] = str(1)
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(run(address, loop, False))
