@@ -13,6 +13,8 @@ Multimeters via BLE (Bluetooth Low Energy) connection *without* prior pairing of
 
 <img src='img/multimeter.jpg' width="300px">
 
+Tested with Windows 10, Linux.
+
 ## Credits
 
 This work derives heavily from two main sources:
@@ -24,6 +26,8 @@ This work derives heavily from two main sources:
 # Quickstart
 
 Install dependencies via `pip install -r requirements.txt`.
+
+Switch on your multimeter in close proximity (~5m) to the PC.
 
 Enter your multimeter's BLE MAC Address in main.py: `address = ('...')`. Use bleak_scan.py to find the MAC address.
 
