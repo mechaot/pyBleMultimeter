@@ -21,4 +21,12 @@ This work derives heavily from two main sources:
 * https://www.element14.com/community/community/element14-presents/workbenchwednesdays/blog/2020/03/09/connecting-to-mp730026-ble-dmm-with-python-and-bleak
 
 
-# 
+# Quickstart
+
+Install dependencies via `pip install -r requirements.txt`.
+
+Enter your multimeter's BLE MAC Address in main.py: `address = ('...')`. Use bleak_scan.py to find the MAC address.
+
+Run `main.py`.
+
+Watch terminal.
