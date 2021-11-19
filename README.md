@@ -13,7 +13,7 @@ Multimeters via BLE (Bluetooth Low Energy) connection *without* prior pairing of
 
 <img src='img/multimeter.jpg' width="300px">
 
-Tested with Windows 10, Linux.
+Tested with Windows 10, Linux using Python 3.8 64-bit.
 
 ## Credits
 
