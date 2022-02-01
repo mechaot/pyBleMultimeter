@@ -9,17 +9,17 @@
 
 import logging
 import asyncio
-import platform
+from sys import platform 
 from ap_90epd import decode_data
 
-from bleak import BleakClient
+from bleak import BleakClient, discover
 from bleak import _logger as logger
 
 # Change this to your meter's address, use bleak_scan.py to find out
 address = ("00:00:00:00:00:00") # for Windows and Linux, my Device is called something like "FS9721-LP3"
-#address = ("4DA7C422-D3DE-4AE5-AF14-CFEBDD3B85D1") # for macOS ?
+#address = ("4DA7C422-D3DE-4AE5-AF14-CFEBDD3B85D1") # format for macOS -  this is unique per client+peripheral though.
 
-if address == ("00:00:00:00:00:00"):
+if (platform != "darwin") and address == ("00:00:00:00:00:00"):
     raise ValueError("Invalid bluetooth mac address. Use BLE scanner app or bleak_scan.py to find out yours.")
 
 # This characteristic UUID is for the BDM / MP730026 BLE message
@@ -56,12 +56,25 @@ async def run(address, loop, debug=False):
         l.addHandler(h)
         logger.addHandler(h)
 
-    async with BleakClient(address, loop=loop) as client:
-        x = await client.is_connected()
-        logger.info("Connected: {0}".format(x))
+
+    # due to some quirks specific to CoreBluetooth, a service UUID must be supplied to
+    # discover(), and we cannot connect directly to a given address: only a "device UUID"
+    # which is specific to *both the client and server*. (i.e. the computer and the multimeter)
+    # @see https://github.com/hbldh/bleak/issues/140
+    if platform == "darwin":
+        devices = await discover(service_uuids=["0000ffb0-0000-1000-8000-00805f9b34fb"])
+        if not devices:
+            raise Exception("unable to discover device with required service uuid.")
+        address = devices[0]
+
+    async with BleakClient(address, timeout=20.0) as client:
+        if not client.is_connected:
+            raise Exception("failed to connect to multimeter")
+
+        logger.info("Connected to device: {0}".format(address))
 
         await client.start_notify(CHARACTERISTIC_UUID, notification_handler)
-        await asyncio.sleep(460.0, loop=loop)
+        await asyncio.sleep(460.0)
         await client.stop_notify(CHARACTERISTIC_UUID)
 
 

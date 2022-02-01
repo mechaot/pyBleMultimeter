@@ -2,18 +2,15 @@
 
 Get BLE Multimeter data to PC. With approx 2 samples per second (in DC Volt mode).
 
-Works for
+Works with FS9721-LP3 based Bluetooth Multimeters, including:
 
 * AOPUTTRIVER AP-90EPD
-
-Should also work for, maybe with different "CHARACTERISTIC_UUID"
+* Infurider YF-90EPD
 * HoldPeak HP-90EPD
-
-Multimeters via BLE (Bluetooth Low Energy) connection *without* prior pairing of the devices.
 
 <img src='img/multimeter.jpg' width="300px">
 
-Tested with Windows 10, Linux using Python 3.8 64-bit.
+Tested with Windows 10, macOS monterey, and Linux using Python 3.8 64-bit.
 
 ## Credits
 
